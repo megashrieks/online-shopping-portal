@@ -1,0 +1,21 @@
+.Login {
+	width: 60%;
+	min-width: 500px;
+	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+	height: 60%;
+	min-height: 400px;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+}
+.carousel-component,
+.login-form {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+.carousel-component {
+	padding: 50px;
+	box-sizing: border-box;
+}
