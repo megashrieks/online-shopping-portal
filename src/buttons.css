@@ -1,0 +1,23 @@
+.btn {
+	padding: 13px 27px;
+	border: 0;
+	background: #eee;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	font-size: 15px;
+	outline: none;
+}
+.btn:hover {
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+.btn-submit {
+	background: rgb(56, 56, 255);
+	box-shadow: 0 0 5px rgba(56, 56, 255, 0.1);
+	color: #fff;
+	cursor: pointer;
+}
+
+.btn-submit:hover {
+	box-shadow: 0 5px 15px rgba(56, 56, 255, 0.7);
+	background: rgb(86, 86, 255);
+}
