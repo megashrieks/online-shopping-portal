@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 import InputField from "../InputField/InputField";
+import axios from "axios";
 export default class Login extends Component {
 	state = {
 		username: "shrikanth",
@@ -10,6 +11,26 @@ export default class Login extends Component {
 		this.setState({
 			[field]: value
 		});
+	};
+	validate = () => {
+		return true;
+	};
+	login = () => {
+		if (this.validate()) {
+			axios
+				.post("http://localhost:5000/login", {
+					username: this.state.username,
+					password: this.state.password
+				})
+				.then(data => {
+					if (data.data.error != null)
+						console.log("Login unsuccessful");
+					else console.log("Successful");
+				})
+				.catch(thrown => {
+					console.log(thrown);
+				});
+		}
 	};
 	render() {
 		return (
@@ -31,7 +52,12 @@ export default class Login extends Component {
 							value={this.state.password}
 							type="password"
 						/>
-						<button className="btn btn-submit right">Submit</button>
+						<button
+							className="btn btn-submit right"
+							onClick={this.login}
+						>
+							Submit
+						</button>
 					</div>
 				</div>
 			</div>

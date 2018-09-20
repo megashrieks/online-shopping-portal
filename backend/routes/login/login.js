@@ -14,8 +14,10 @@ router.post("/login", (req, res) => {
 			"'",
 		(err, rows) => {
 			if (err) throw Error(err);
-			if (rows.length == 0) res.json({ error: "Login failed" });
-			else {
+			if (rows.length == 0) {
+				console.log("request");
+				res.json({ error: "Login failed" });
+			} else {
 				let token = jwt.sign(
 					{
 						exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
@@ -25,6 +27,7 @@ router.post("/login", (req, res) => {
 					},
 					key
 				);
+				console.log("request success");
 				res.json({ error: null, token: token });
 			}
 		}
