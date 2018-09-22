@@ -37,9 +37,7 @@ export default class Login extends Component {
 			<div className="Login">
 				<div className="carousel-component">Carousel here</div>
 				<div className="login-form">
-					<div className="header-3">
-						Login to Access Unlimited Potential
-					</div>
+					<div className="header-3">login to continue...</div>
 					<div className="login-inputs">
 						<InputField
 							onChange={this.changeData("username")}

@@ -1,23 +1,29 @@
 .btn {
-	padding: 13px 27px;
-	border: 0;
+	min-width: 100px;
 	background: #eee;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	border: 0;
+	border-radius: 10px;
+	text-align: center;
 	transition: 0.3s;
-	font-size: 15px;
+	box-sizing: border-box;
+	line-height: 45px;
+	height: 45px;
+	font-size: 13px;
 	outline: none;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	cursor: pointer;
 }
 .btn:hover {
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+	background: #fff;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 .btn-submit {
-	background: rgb(56, 56, 255);
-	box-shadow: 0 0 5px rgba(56, 56, 255, 0.1);
+	background: linear-gradient(90deg, rgb(36, 36, 220), rgb(120, 120, 255));
 	color: #fff;
-	cursor: pointer;
 }
 
 .btn-submit:hover {
-	box-shadow: 0 5px 15px rgba(56, 56, 255, 0.7);
-	background: rgb(86, 86, 255);
+	box-shadow: 0 5px 5px rgba(56, 56, 255, 0.4);
+	background: linear-gradient(45deg, rgb(50, 50, 220), rgb(120, 120, 255));
 }
