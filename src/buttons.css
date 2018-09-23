@@ -13,6 +13,21 @@
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	cursor: pointer;
+	display: inline-block;
+}
+.btn.margin {
+	margin: 0 10px;
+}
+
+.btn.no-space {
+	letter-spacing: 0px;
+}
+.btn.no-radius {
+	border-radius: 0;
+}
+.btn.auto-caps {
+	text-transform: initial;
+	font-size: 15px;
 }
 .btn.small {
 	min-width: 0;
@@ -20,6 +35,9 @@
 	line-height: 50px;
 	height: 50px;
 	border-radius: 0;
+}
+.btn.no-padd {
+	padding: 0;
 }
 .btn.white {
 	background: white;
@@ -73,4 +91,21 @@
 .btn-submit.active {
 	box-shadow: 0 5px 5px rgba(56, 56, 255, 0.4);
 	background: linear-gradient(45deg, rgb(50, 50, 220), rgb(120, 120, 255));
+}
+.btn-warn {
+	background: linear-gradient(45deg, #fdc830, #f37335);
+	color: #000;
+}
+
+.btn-warn:hover,
+.btn-warn:active,
+.btn-warn:focus,
+.btn-warn.active {
+	box-shadow: 0 5px 5px rgba(243, 115, 53, 0.4);
+	background: linear-gradient(55deg, #fdc830, #f37335);
+}
+.btn .icon {
+	width: 25%;
+	text-align: right;
+	float: left;
 }
