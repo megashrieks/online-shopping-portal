@@ -14,9 +14,51 @@
 	letter-spacing: 2px;
 	cursor: pointer;
 }
+.btn.small {
+	min-width: 0;
+	padding: 0 20px;
+	line-height: 50px;
+	height: 50px;
+	border-radius: 0;
+}
+.btn.white {
+	background: white;
+}
+.btn.white:hover,
+.btn.white:active,
+.btn.white:focus,
+.btn.white.active {
+	background: #eee;
+}
+.btn.grey {
+	background: #eee;
+}
+.btn.grey:hover,
+.btn.grey:active,
+.btn.grey:focus,
+.btn.grey.active {
+	background: #ccc;
+}
+.btn.blue {
+	background: rgb(0, 0, 250);
+	color: #fff;
+}
+.btn.blue:hover,
+.btn.blue:active,
+.btn.blue:focus,
+.btn.blue.active {
+	background: rgb(0, 0, 200);
+}
+.btn.no-shadow:hover,
+.btn.no-shadow:active,
+.btn.no-shadow:focus,
+.btn.no-shadow.active {
+	box-shadow: none;
+}
 .btn:hover,
 .btn:active,
-.btn:focus {
+.btn:focus,
+.btn.active {
 	background: #fff;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -27,7 +69,8 @@
 
 .btn-submit:hover,
 .btn-submit:active,
-.btn-submit:focus {
+.btn-submit:focus,
+.btn-submit.active {
 	box-shadow: 0 5px 5px rgba(56, 56, 255, 0.4);
 	background: linear-gradient(45deg, rgb(50, 50, 220), rgb(120, 120, 255));
 }

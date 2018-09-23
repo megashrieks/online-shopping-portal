@@ -33,6 +33,7 @@ export default class Login extends Component {
 			this.setState({
 				loading: true
 			});
+			source = CancelToken.source();
 			axios
 				.post(
 					"http://localhost:5000/login",
