@@ -4,11 +4,13 @@
 	height: var(--total-height);
 	line-height: var(--total-height);
 	display: block;
-	/* border: 20px solid #000; */
-	border-radius: 15px;
+	border-radius: 5px;
+	border: 1px solid transparent;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	width: 100%;
 	margin: 20px 0;
+	transition: 0.3s;
+	padding-bottom: 5px;
 }
 .input-field.error {
 	border: 1px solid rgb(255, 36, 36);
@@ -61,4 +63,24 @@
 .input-field.error .input-raw:focus + .actual-label,
 .input-field.error .input-raw:not([value=""]) + .actual-label {
 	color: rgb(255, 36, 36);
+}
+.input-field .msg {
+	font-size: 11px;
+	border-right: 1px solid #000;
+	border-left: 1px solid #000;
+	line-height: 11px;
+	position: absolute;
+	left: 5px;
+	transform: translate(0%, 50%);
+	bottom: 0;
+	background: #fff;
+	box-shadow: 0 3px 10px rgba(255, 255, 255, 1);
+	color: #000;
+	padding: 0 5px;
+	margin-left: 5px;
+}
+.input-field.error .msg {
+	color: rgb(255, 36, 36);
+	border-right: 1px solid rgb(255, 36, 36);
+	border-left: 1px solid rgb(255, 36, 36);
 }

@@ -17,6 +17,7 @@
 .login-form {
 	padding: 50px;
 	width: 40%;
+	position: relative;
 	box-sizing: border-box;
 }
 .carousel-component {

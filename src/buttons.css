@@ -14,7 +14,9 @@
 	letter-spacing: 2px;
 	cursor: pointer;
 }
-.btn:hover {
+.btn:hover,
+.btn:active,
+.btn:focus {
 	background: #fff;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +25,9 @@
 	color: #fff;
 }
 
-.btn-submit:hover {
+.btn-submit:hover,
+.btn-submit:active,
+.btn-submit:focus {
 	box-shadow: 0 5px 5px rgba(56, 56, 255, 0.4);
 	background: linear-gradient(45deg, rgb(50, 50, 220), rgb(120, 120, 255));
 }
