@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 let { createToken } = require("../../tokens");
 router.post("/login", (req, res) => {
-	let login = require("../../database/login");
+	let { login } = require("../../database");
 	let username = req.body.username;
 	let password = req.body.password;
 	login(username, password, (err, rows) => {
@@ -11,7 +11,9 @@ router.post("/login", (req, res) => {
 			console.log("request");
 			res.json({ error: "Login failed" });
 		} else {
-			let token = console.log("request success");
+			let token = createToken({
+				username: username
+			});
 			res.json({ error: null, token: token });
 		}
 	});
