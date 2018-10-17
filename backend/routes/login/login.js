@@ -1,7 +1,6 @@
 let express = require("express");
 let router = express.Router();
-let jwt = require("jsonwebtoken");
-let { key } = require("../../../secret");
+let { createToken } = require("../../tokens");
 router.post("/login", (req, res) => {
 	let login = require("../../database/login");
 	let username = req.body.username;
@@ -12,16 +11,7 @@ router.post("/login", (req, res) => {
 			console.log("request");
 			res.json({ error: "Login failed" });
 		} else {
-			let token = jwt.sign(
-				{
-					exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-					data: {
-						username: username
-					}
-				},
-				key
-			);
-			console.log("request success");
+			let token = console.log("request success");
 			res.json({ error: null, token: token });
 		}
 	});
