@@ -1,3 +1,4 @@
 module.exports = {
-	createToken: require("./createToken")
+	createToken: require("./createToken"),
+	verifyToken: require("./verifyToken")
 };

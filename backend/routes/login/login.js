@@ -8,7 +8,6 @@ router.post("/login", (req, res) => {
 	login(username, password, (err, rows) => {
 		if (err) throw Error(err);
 		if (rows.length == 0) {
-			console.log("request");
 			res.json({ error: "Login failed" });
 		} else {
 			let token = createToken({

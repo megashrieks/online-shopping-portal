@@ -1,5 +1,6 @@
 module.exports = [
 	require("./login/login"),
 	require("./search/search"),
-	require("./register/register")
+	require("./register/register"),
+	require("./sellProduct/sellProduct")
 ];
