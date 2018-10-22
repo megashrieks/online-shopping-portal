@@ -1,22 +1,60 @@
 import React, { Component } from "react";
 import "./SearchResults.css";
 import SearchItem from "./SearchItem/SearchItem";
+import axios from "axios";
+let CancelToken = axios.CancelToken;
+let source;
 export default class SearchResults extends Component {
+	componentWillUnmount() {
+		source.cancel("Operation cancelled by the user");
+	}
+	componentDidUpdate(oldProps) {
+		if (JSON.stringify(oldProps) !== JSON.stringify(this.props))
+			this.sendSearch();
+	}
+	sendSearch = () => {
+		source = CancelToken.source();
+		this.setState({ loading: true });
+		let pricerange = {};
+		if (this.props.options.lprice !== null)
+			pricerange = {
+				lprice: this.props.options.lprice,
+				rprice: this.props.options.rprice
+			};
+		axios
+			.get("/search", {
+				params: {
+					q: this.props.keyword,
+					...pricerange,
+					quantity: this.props.options.quantity || 0
+				},
+				cancelToken: source.token
+			})
+			.then(response => {
+				this.setState({
+					result: response.data.result.map(element => {
+						return {
+							title: element.prod_name,
+							details: element.prod_details,
+							price: element.prod_price,
+							stock: element.remaining,
+							rating: 4,
+							pid: element.prod_id,
+							image:
+								"https://i.pinimg.com/originals/7f/89/db/7f89dbec476c069cc2d33ed94925ea05.jpg"
+						};
+					})
+				});
+			})
+			.catch(err => {
+				if (axios.isCancel(err)) console.log(err.message);
+			});
+	};
+	componentDidMount() {
+		this.sendSearch();
+	}
 	state = {
-		result: [
-			{
-				title: "King size water bed",
-				details: `King size water beds.
-                 contains water inside water bed 2 ppl can fit inside, 
-                 2 ppl can fit outside`,
-				price: 2500,
-				stock: 7,
-				rating: 4,
-				pid: 1,
-				image:
-					"https://i.pinimg.com/originals/7f/89/db/7f89dbec476c069cc2d33ed94925ea05.jpg"
-			}
-		],
+		result: [],
 		scrollset: 10,
 		offset: 0
 	};
@@ -32,7 +70,7 @@ export default class SearchResults extends Component {
 		return (
 			<div className="search-results">
 				<div className="status-search">
-					Showing 1 of 1000 for search "{this.props.keyword}"
+					Showing search results for "{this.props.keyword}"
 				</div>
 				<div className="search-list">{list}</div>
 			</div>

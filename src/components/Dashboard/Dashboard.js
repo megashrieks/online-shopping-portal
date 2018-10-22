@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
 			<div className="dashboard-component">
 				<SearchComponent onSearch={this.search} />
 				{this.state.showResults && (
-					<SearchResults keyword={this.state.search} />
+					<SearchResults keyword={this.state.search} options={{}} />
 				)}
 			</div>
 		);
