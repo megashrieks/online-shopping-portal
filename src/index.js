@@ -4,6 +4,7 @@ import "./index.css";
 import "./buttons.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-
+import axios from "axios";
+axios.baseURL = "http://localhost:5000";
 ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();

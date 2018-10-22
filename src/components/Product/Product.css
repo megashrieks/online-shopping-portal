@@ -36,3 +36,8 @@
 .buttons {
 	margin: 15px 0;
 }
+
+.item-remaining {
+	font-size: 14px;
+	margin: 5px 0;
+}

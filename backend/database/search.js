@@ -13,7 +13,7 @@ module.exports = (keyword, options, callback) => {
 		parameters.length -= 2;
 	}
 	connection.query(
-		`Select * from Products P where prod_name like '%${keyword}%' 
+		`Select *,P.prod_count-(select count(*) from Orders OO where OO.prod_id=P.prod_id) as remaining from Products P where prod_name like '%${keyword}%' 
 			and ((select P.prod_count - sum(O.count) from Orders O where O.prod_id=P.prod_id) >= ?
 			or(
 				(select count(*) from Orders O where O.prod_id=P.prod_id) = 0
