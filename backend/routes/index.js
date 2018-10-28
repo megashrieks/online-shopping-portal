@@ -3,5 +3,6 @@ module.exports = [
 	require("./search/search"),
 	require("./register/register"),
 	require("./sellProduct/sellProduct"),
-	require("./getProduct/getProduct")
+	require("./getProduct/getProduct"),
+	require("./buyProduct/buyProduct")
 ];

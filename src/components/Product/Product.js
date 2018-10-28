@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./Product.css";
 import axios from "axios";
 import Loading from "../Loading/Loading";
+import { Route, Switch } from "react-router-dom";
+import BuyModal from "./BuyModal/BuyModal";
 let CancelToken = axios.CancelToken;
 let source;
 export default class Product extends Component {
@@ -48,6 +50,12 @@ export default class Product extends Component {
 		image:
 			"https://i.pinimg.com/originals/7f/89/db/7f89dbec476c069cc2d33ed94925ea05.jpg"
 	};
+	gotobuy = () => {
+		this.props.history.push(this.props.match.url + "/buy");
+	};
+	closeBuy = () => {
+		this.props.history.push(this.props.match.url);
+	};
 	render() {
 		let detail = this.state;
 		return (
@@ -86,6 +94,7 @@ export default class Product extends Component {
 								Add to cart
 							</div>
 							<div
+								onClick={this.gotobuy}
 								className="btn btn-submit margin no-radius no-space auto-caps no-padd"
 								style={{
 									width: "150px"
@@ -104,6 +113,21 @@ export default class Product extends Component {
 						</div>
 					</div>
 				</div>
+				<Switch>
+					<Route
+						path={this.props.match.url + "/buy"}
+						component={() => (
+							<BuyModal
+								closeBuy={this.closeBuy}
+								item={{
+									pid: this.state.pid,
+									stock: this.state.stock,
+									total: this.state.total
+								}}
+							/>
+						)}
+					/>
+				</Switch>
 			</Loading>
 		);
 	}

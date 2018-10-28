@@ -1,24 +1,24 @@
 let express = require("express");
 let router = express.Router();
-router.post("/sell", (req, res) => {
-	let { sellProduct } = require("../../database");
+router.post("/buy/:pid", (req, res) => {
+	let { buyProduct } = require("../../database");
 	let { verifyToken } = require("../../tokens");
-	let { name, count, price, details } = req.body;
+	let { pid } = req.params;
+	let { count } = req.body;
+	console.log(req.params);
 	verifyToken(req.headers.token)
 		.then(decoded => {
-			sellProduct(
+			buyProduct(
 				{
 					username: decoded.data.username,
-					name,
-					count,
-					price,
-					details
+					pid,
+					count
 				},
 				err => {
 					if (err) throw err;
 					res.json({
 						error: null,
-						data: "sold item successfully"
+						data: "bought item successfully"
 					});
 				}
 			);

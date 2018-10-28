@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SearchResults.css";
 import SearchItem from "./SearchItem/SearchItem";
 import axios from "axios";
+import Loading from "../../Loading/Loading";
 let CancelToken = axios.CancelToken;
 let source;
 export default class SearchResults extends Component {
@@ -32,6 +33,7 @@ export default class SearchResults extends Component {
 			})
 			.then(response => {
 				this.setState({
+					loading: false,
 					result: response.data.result.map(element => {
 						return {
 							title: element.prod_name,
@@ -68,12 +70,14 @@ export default class SearchResults extends Component {
 				return <SearchItem item={element} key={"item-" + index} />;
 			});
 		return (
-			<div className="search-results">
-				<div className="status-search">
-					Showing search results for "{this.props.keyword}"
+			<Loading loading={this.state.loading} conditional={true}>
+				<div className="search-results">
+					<div className="status-search">
+						Showing search results for "{this.props.keyword}"
+					</div>
+					<div className="search-list">{list}</div>
 				</div>
-				<div className="search-list">{list}</div>
-			</div>
+			</Loading>
 		);
 	}
 }
