@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import { Route, Switch } from "react-router-dom";
 import BuyModal from "./BuyModal/BuyModal";
+import CartModal from "./CartModal/CartModal";
 let CancelToken = axios.CancelToken;
 let source;
 export default class Product extends Component {
@@ -53,8 +54,11 @@ export default class Product extends Component {
 	gotobuy = () => {
 		this.props.history.push(this.props.match.url + "/buy");
 	};
-	closeBuy = () => {
+	closeModal = () => {
 		this.props.history.push(this.props.match.url);
+	};
+	gotocart = () => {
+		this.props.history.push(this.props.match.url + "/cart");
 	};
 	render() {
 		let detail = this.state;
@@ -78,17 +82,14 @@ export default class Product extends Component {
 						</div>
 						<div className="buttons">
 							<div
+								onClick={this.gotocart}
 								className="btn btn-warn margin no-radius no-space auto-caps no-padd"
-								style={{
-									width: "150px"
-								}}
+								style={{ width: "150px" }}
 							>
 								<div className="icon">
 									<i
 										className="fa fa-cart-plus"
-										style={{
-											fontSize: "20px"
-										}}
+										style={{ fontSize: "20px" }}
 									/>{" "}
 								</div>
 								Add to cart
@@ -96,16 +97,12 @@ export default class Product extends Component {
 							<div
 								onClick={this.gotobuy}
 								className="btn btn-submit margin no-radius no-space auto-caps no-padd"
-								style={{
-									width: "150px"
-								}}
+								style={{ width: "150px" }}
 							>
 								<div className="icon">
 									<i
 										className="fa fa-credit-card"
-										style={{
-											fontSize: "20px"
-										}}
+										style={{ fontSize: "20px" }}
 									/>{" "}
 								</div>
 								Buy now
@@ -118,7 +115,20 @@ export default class Product extends Component {
 						path={this.props.match.url + "/buy"}
 						component={() => (
 							<BuyModal
-								closeBuy={this.closeBuy}
+								closeBuy={this.closeModal}
+								item={{
+									pid: this.state.pid,
+									stock: this.state.stock,
+									total: this.state.total
+								}}
+							/>
+						)}
+					/>
+					<Route
+						path={this.props.match.url + "/cart"}
+						component={() => (
+							<CartModal
+								closeCart={this.closeModal}
 								item={{
 									pid: this.state.pid,
 									stock: this.state.stock,
