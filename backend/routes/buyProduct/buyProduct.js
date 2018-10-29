@@ -5,7 +5,6 @@ router.post("/buy/:pid", (req, res) => {
 	let { verifyToken } = require("../../tokens");
 	let { pid } = req.params;
 	let { count } = req.body;
-	console.log(req.params);
 	verifyToken(req.headers.token)
 		.then(decoded => {
 			buyProduct(
@@ -15,7 +14,10 @@ router.post("/buy/:pid", (req, res) => {
 					count
 				},
 				err => {
-					if (err) throw err;
+					if (err)
+						res.json({
+							error: "failed to buy product"
+						});
 					res.json({
 						error: null,
 						data: "bought item successfully"
