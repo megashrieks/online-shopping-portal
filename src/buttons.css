@@ -15,6 +15,10 @@
 	cursor: pointer;
 	display: inline-block;
 }
+.btn.block {
+	display: block;
+	float: left;
+}
 .btn.margin {
 	margin: 0 10px;
 }

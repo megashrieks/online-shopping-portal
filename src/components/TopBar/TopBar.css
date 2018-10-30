@@ -1,0 +1,44 @@
+.top-bar {
+	line-height: 50px;
+	width: 100%;
+	height: 50px;
+	background: white;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+body {
+	padding-top: 50px;
+}
+.badge {
+	background: #ccc;
+	border-radius: 50%;
+	padding: 5px;
+	font-size: 10px;
+	margin-left: 15px;
+}
+.cart-detail {
+	position: relative;
+	float: left;
+}
+.cart-content {
+	display: none;
+	position: absolute;
+	background: white;
+	width: 100%;
+	transform: translateY(52px);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+.cart-detail.active .cart-content {
+	display: block;
+}
+.cart-item {
+	list-style-type: none;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+}
+.cart-item:hover {
+	background: rgb(56, 56, 200);
+}
