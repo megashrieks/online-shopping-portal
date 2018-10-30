@@ -27,18 +27,22 @@ body {
 	position: absolute;
 	background: white;
 	width: 100%;
+	min-width: 120px;
 	transform: translateY(52px);
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 .cart-detail.active .cart-content {
 	display: block;
 }
-.cart-item {
+.cart-item,
+.buy-prod {
 	list-style-type: none;
 	width: 100%;
 	line-height: 40px;
 	text-align: center;
+	cursor: pointer;
 }
 .cart-item:hover {
-	background: rgb(56, 56, 200);
+	background: rgb(86, 86, 250);
+	color: white;
 }

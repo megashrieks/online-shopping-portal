@@ -34,6 +34,11 @@ export default class TopBar extends Component {
 				</li>
 			);
 		});
+		cartList.push(
+			<li className="buy-prod btn btn-submit no-radius no-space no-padd">
+				Place Order
+			</li>
+		);
 		return (
 			<div className="top-bar">
 				<div
