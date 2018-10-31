@@ -67,14 +67,14 @@ export default withRouter(
 				<Loading conditional={true} loading={this.state.loading}>
 					<div className="product-details">
 						<div className="image">
-							<img src={detail.image} />
+							<img src={detail.image} alt={detail.title} />
 						</div>
 						<div className="details">
 							<div className="title">{detail.title}</div>
 							<div className="item-details">{detail.details}</div>
 							<div className="item-price">
 								Price : {detail.price}{" "}
-								<i className="fa fa-rupee" />
+								<i className="fa fa-rupee-sign" />
 							</div>
 							<div className="item-remaining">
 								Remaining {detail.stock} / {detail.total}

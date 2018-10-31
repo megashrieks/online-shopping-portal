@@ -1,0 +1,15 @@
+.order-item {
+	width: 100%;
+	padding: 15px 30px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	text-align: center;
+	cursor: pointer;
+}
+.order-item:hover {
+	background: #eee;
+}
+.order-link {
+	color: black;
+	text-decoration: none;
+}

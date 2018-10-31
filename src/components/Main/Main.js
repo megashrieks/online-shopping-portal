@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import Product from "../Product/Product";
 import TopBar from "../TopBar/TopBar";
+import Purchases from "../Purchases/Purchases";
 export default class Main extends Component {
 	render() {
 		return (
@@ -16,6 +17,15 @@ export default class Main extends Component {
 							<Fragment>
 								<TopBar />
 								<Product />
+							</Fragment>
+						)}
+					/>
+					<Route
+						path="/purchases"
+						component={() => (
+							<Fragment>
+								<TopBar />
+								<Purchases />
 							</Fragment>
 						)}
 					/>

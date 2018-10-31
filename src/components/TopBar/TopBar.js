@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./TopBar.css";
 export default class TopBar extends Component {
 	state = {
@@ -35,7 +36,10 @@ export default class TopBar extends Component {
 			);
 		});
 		cartList.push(
-			<li className="buy-prod btn btn-submit no-radius no-space no-padd">
+			<li
+				key={"place"}
+				className="buy-prod block btn btn-submit no-radius no-space no-padd"
+			>
 				Place Order
 			</li>
 		);
@@ -48,16 +52,22 @@ export default class TopBar extends Component {
 				>
 					<button
 						onClick={this.toggleCartInfo}
-						className="btn small no-radius block"
+						className="btn white no-shadow small no-radius block"
 						style={{ width: "100px" }}
 					>
 						<div className="icon">
 							<i className="fa fa-cart-plus" />
 						</div>
-						<span className="badge">{this.state.items.length}</span>
+						<div className="badge">{this.state.items.length}</div>
 					</button>
 					<div className="cart-content">{cartList}</div>
 				</div>
+				<Link
+					to="/purchases"
+					className="purchases white no-shadow btn no-radius small block"
+				>
+					<i className="fa fa-box-open" />
+				</Link>
 			</div>
 		);
 	}

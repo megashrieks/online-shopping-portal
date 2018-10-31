@@ -4,5 +4,6 @@ module.exports = {
 	register: require("./register"),
 	sellProduct: require("./sellProduct"),
 	getProduct: require("./getProduct"),
-	buyProduct: require("./buyProduct")
+	buyProduct: require("./buyProduct"),
+	getPurchases: require("./getPurchases")
 };

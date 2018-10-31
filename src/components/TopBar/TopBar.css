@@ -3,7 +3,7 @@
 	width: 100%;
 	height: 50px;
 	background: white;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,9 +14,13 @@ body {
 .badge {
 	background: #ccc;
 	border-radius: 50%;
-	padding: 5px;
+	float: right;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	margin: 15px 0;
+	line-height: 20px;
 	font-size: 10px;
-	margin-left: 15px;
 }
 .cart-detail {
 	position: relative;
@@ -27,9 +31,20 @@ body {
 	position: absolute;
 	background: white;
 	width: 100%;
-	min-width: 120px;
-	transform: translateY(52px);
+	min-width: 160px;
+	transform: translate(10px, 60px);
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+	border-top: 3px solid #333;
+	border-radius: 3px;
+}
+.cart-content::before {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border: 7.5px solid transparent;
+	transform: translate(50%, -112.5%);
+	border-bottom-color: black;
 }
 .cart-detail.active .cart-content {
 	display: block;
@@ -43,6 +58,6 @@ body {
 	cursor: pointer;
 }
 .cart-item:hover {
-	background: rgb(86, 86, 250);
-	color: white;
+	background: #eee;
+	/* color: white; */
 }
