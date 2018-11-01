@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 import Dashboard from "../Dashboard/Dashboard";
 import Product from "../Product/Product";
 import TopBar from "../TopBar/TopBar";
@@ -12,6 +13,7 @@ export default class Main extends Component {
 			<Fragment>
 				<Switch>
 					<Route path="/login" component={Login} />
+					<Route path="/register" component={Register} />
 					<Route
 						path="/products/:pid"
 						component={() => (

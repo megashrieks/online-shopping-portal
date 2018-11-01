@@ -12,6 +12,10 @@
 	transition: 0.3s;
 	padding-bottom: 5px;
 }
+.input-field.area {
+	--total-height: 120px;
+	line-height: auto;
+}
 .input-field:focus,
 .input-field:hover {
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
@@ -52,6 +56,10 @@
 	font-family: inherit;
 	padding-left: 15px;
 	box-sizing: border-box;
+}
+.area .input-raw {
+	padding-top: 10px;
+	line-height: 1.1;
 }
 .input-field .input-raw:focus + .actual-label,
 .input-field .input-raw:not([value=""]) + .actual-label {
