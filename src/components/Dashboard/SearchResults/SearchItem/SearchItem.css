@@ -11,8 +11,8 @@ a.search-item {
 	color: inherit;
 }
 .search-item .image {
-	min-width: 125px;
-	max-width: 125px;
+	min-width: 175px;
+	max-width: 175px;
 	min-height: 150px;
 	margin-right: 15px;
 }

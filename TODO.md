@@ -6,3 +6,4 @@
 -   make the ordering of products UI better
 -   constrain the ordering amount in ordering UI
 -   constrain the ordering amount in adding to cart UI
+-   Make Image Upload possible for each product

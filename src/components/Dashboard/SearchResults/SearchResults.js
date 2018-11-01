@@ -43,7 +43,8 @@ export default class SearchResults extends Component {
 							rating: 4,
 							pid: element.prod_id,
 							image:
-								"https://i.pinimg.com/originals/7f/89/db/7f89dbec476c069cc2d33ed94925ea05.jpg"
+								"https://via.placeholder.com/200?text=image of " +
+								element.prod_name.toLowerCase()
 						};
 					})
 				});

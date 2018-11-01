@@ -72,7 +72,7 @@ export default withRouter(
 						<div className="image">
 							<img
 								src={
-									"https://via.placeholder.com/300?text=image of " +
+									"https://via.placeholder.com/200?text=image of " +
 									detail.title.toLowerCase()
 								}
 								alt={detail.title}
