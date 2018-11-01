@@ -45,6 +45,14 @@ export default class TopBar extends Component {
 		);
 		return (
 			<div className="top-bar">
+				<Link
+					exact
+					active="active-link"
+					to="/"
+					className="purchases white no-shadow btn no-radius small block"
+				>
+					<i className="fa fa-home" />
+				</Link>
 				<div
 					className={
 						"cart-detail" + (this.state.active ? " active" : "")
