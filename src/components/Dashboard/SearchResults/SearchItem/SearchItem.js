@@ -7,13 +7,19 @@ export default class SearchItem extends Component {
 		return (
 			<Link className="search-item" to={"/products/" + item.pid}>
 				<div className="image">
-					<img src={item.image} alt={"image of " + item.title} />
+					<img
+						src={
+							"https://via.placeholder.com/300?text=image of " +
+							item.title.toLowerCase()
+						}
+						alt={"image of " + item.title}
+					/>
 				</div>
 				<div className="details">
 					<div className="title">{item.title}</div>
 					<div className="item-details">{item.details}</div>
 					<div className="item-price">
-						Price : {item.price} <i className="fa fa-rupee" />
+						Price : {item.price} <i className="fa fa-rupee-sign" />
 					</div>
 					<div className="rating">Ratings : {item.rating} / 5.0</div>
 				</div>

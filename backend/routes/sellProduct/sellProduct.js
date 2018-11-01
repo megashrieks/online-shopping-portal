@@ -14,10 +14,11 @@ router.post("/sell", (req, res) => {
 					price,
 					details
 				},
-				err => {
+				(err, data) => {
 					if (err) throw err;
 					res.json({
 						error: null,
+						pid: data.insertId,
 						data: "sold item successfully"
 					});
 				}

@@ -29,13 +29,21 @@ body {
 	height: 100%;
 	padding: 30px;
 	box-sizing: border-box;
+	position: relative;
 }
 .header {
 	padding: 10px;
 	font-size: 30px;
-	margin: 10px 40px;
+	margin: 0px 40px;
 }
 .header:hover {
 	text-decoration: underline;
 	cursor: default;
+}
+.float {
+	float: left;
+}
+
+.inline {
+	display: inline-block;
 }

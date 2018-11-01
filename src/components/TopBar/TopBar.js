@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import "./TopBar.css";
 export default class TopBar extends Component {
 	state = {
@@ -63,10 +63,18 @@ export default class TopBar extends Component {
 					<div className="cart-content">{cartList}</div>
 				</div>
 				<Link
+					active="active-link"
 					to="/purchases"
 					className="purchases white no-shadow btn no-radius small block"
 				>
 					<i className="fa fa-box-open" />
+				</Link>
+				<Link
+					active="active-link"
+					to="/sell"
+					className="purchases white no-shadow btn no-radius small block"
+				>
+					<i className="fa fa-plus" />
 				</Link>
 			</div>
 		);

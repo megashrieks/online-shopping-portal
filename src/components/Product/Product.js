@@ -14,7 +14,6 @@ export default withRouter(
 		}
 		componentDidMount() {
 			source = CancelToken.source();
-			this.setState({ loading: true });
 			let { pid } = this.props.match.params;
 			axios
 				.get("/product/" + pid, {
@@ -31,13 +30,13 @@ export default withRouter(
 						}
 					} = response;
 					this.setState({
-						loading: false,
 						pid,
 						total,
 						stock,
 						details,
 						title,
-						price
+						price,
+						loading: false
 					});
 				})
 				.catch(err => {
@@ -47,10 +46,14 @@ export default withRouter(
 				});
 		}
 		state = {
+			pid: 0,
+			stock: 0,
+			details: "",
+			title: "",
+			price: 0,
 			loading: true,
 			rating: 4,
-			image:
-				"https://i.pinimg.com/originals/7f/89/db/7f89dbec476c069cc2d33ed94925ea05.jpg"
+			image: ""
 		};
 		gotobuy = () => {
 			this.props.history.push(this.props.match.url + "/buy");
@@ -67,7 +70,13 @@ export default withRouter(
 				<Loading conditional={true} loading={this.state.loading}>
 					<div className="product-details">
 						<div className="image">
-							<img src={detail.image} alt={detail.title} />
+							<img
+								src={
+									"https://via.placeholder.com/300?text=image of " +
+									detail.title.toLowerCase()
+								}
+								alt={detail.title}
+							/>
 						</div>
 						<div className="details">
 							<div className="title">{detail.title}</div>
