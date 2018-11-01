@@ -12,9 +12,20 @@ export default withRouter(
 		componentWillUnmount() {
 			source.cancel("Operation cancelled by user");
 		}
+		cartitems = [];
 		componentDidMount() {
 			source = CancelToken.source();
 			let { pid } = this.props.match.params;
+			let { getCart } = require("../utils/cart");
+			this.cartitems = getCart();
+			for (let i = 0; i < this.cartitems.items.length; ++i) {
+				if (this.cartitems.items[i].pid === pid) {
+					this.setState({
+						found: true
+					});
+					break;
+				}
+			}
 			axios
 				.get("/product/" + pid, {
 					cancelToken: source.token
@@ -53,7 +64,8 @@ export default withRouter(
 			price: 0,
 			loading: true,
 			rating: 4,
-			image: ""
+			image: "",
+			found: false
 		};
 		gotobuy = () => {
 			this.props.history.push(this.props.match.url + "/buy");
@@ -63,6 +75,13 @@ export default withRouter(
 		};
 		gotocart = () => {
 			this.props.history.push(this.props.match.url + "/cart");
+		};
+		removeItemFromCart = () => {
+			let { removeFromCart } = require("../utils/cart");
+			removeFromCart(this.state.pid);
+			this.setState({
+				found: false
+			});
 		};
 		render() {
 			let detail = this.state;
@@ -92,19 +111,36 @@ export default withRouter(
 								Ratings : {detail.rating} / 5.0
 							</div>
 							<div className="buttons">
-								<div
-									onClick={this.gotocart}
-									className="btn btn-warn margin no-radius no-space auto-caps no-padd"
-									style={{ width: "150px" }}
-								>
-									<div className="icon">
-										<i
-											className="fa fa-cart-plus"
-											style={{ fontSize: "20px" }}
-										/>{" "}
+								{!this.state.found && (
+									<div
+										onClick={this.gotocart}
+										className="btn btn-warn margin no-radius no-space auto-caps no-padd"
+										style={{ width: "150px" }}
+									>
+										<div className="icon">
+											<i
+												className="fa fa-cart-plus"
+												style={{ fontSize: "20px" }}
+											/>{" "}
+										</div>
+										Add to cart
 									</div>
-									Add to cart
-								</div>
+								)}
+								{this.state.found && (
+									<div
+										onClick={this.removeItemFromCart}
+										className="btn btn-warn margin no-radius no-space auto-caps"
+										style={{ width: "175px" }}
+									>
+										<div className="icon">
+											<i
+												className="fa fa-cart-arrow-down"
+												style={{ fontSize: "18px" }}
+											/>{" "}
+										</div>
+										Remove to cart
+									</div>
+								)}
 								<div
 									onClick={this.gotobuy}
 									className="btn btn-submit margin no-radius no-space auto-caps no-padd"
@@ -135,19 +171,21 @@ export default withRouter(
 								/>
 							)}
 						/>
-						<Route
-							path={this.props.match.url + "/cart"}
-							component={() => (
-								<CartModal
-									closeCart={this.closeModal}
-									item={{
-										pid: this.state.pid,
-										stock: this.state.stock,
-										total: this.state.total
-									}}
-								/>
-							)}
-						/>
+						{!this.state.found && (
+							<Route
+								path={this.props.match.url + "/cart"}
+								component={() => (
+									<CartModal
+										closeCart={this.closeModal}
+										item={{
+											pid: this.state.pid,
+											stock: this.state.stock,
+											total: this.state.total
+										}}
+									/>
+								)}
+							/>
+						)}
 					</Switch>
 				</Loading>
 			);

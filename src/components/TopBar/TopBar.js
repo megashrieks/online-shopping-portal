@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink as Link } from "react-router-dom";
+import CartItem from "./CartItem/CartItem";
 import "./TopBar.css";
 export default class TopBar extends Component {
 	state = {
@@ -11,10 +12,15 @@ export default class TopBar extends Component {
 		let { subscribeCartEvent } = require("../utils/cart");
 		subscribeCartEvent(this.changeCart);
 	}
+	unmounted = false;
+	componentWillUnmount() {
+		this.unmounted = true;
+	}
 	changeCart = cart => {
-		this.setState({
-			items: cart.items
-		});
+		!this.unmounted &&
+			this.setState({
+				items: cart.items
+			});
 	};
 	componentDidMount() {
 		let { getCart } = require("../utils/cart");
@@ -30,9 +36,7 @@ export default class TopBar extends Component {
 	render() {
 		let cartList = this.state.items.map((element, index) => {
 			return (
-				<li className="cart-item" key={index}>
-					{element.pid}:{element.count}
-				</li>
+				<CartItem pid={element.pid} count={element.count} key={index} />
 			);
 		});
 		cartList.push(
@@ -40,7 +44,7 @@ export default class TopBar extends Component {
 				key={"place"}
 				className="buy-prod block btn btn-submit no-radius no-space no-padd"
 			>
-				Place Order
+				Manage Orders
 			</li>
 		);
 		return (
@@ -49,7 +53,7 @@ export default class TopBar extends Component {
 					exact
 					active="active-link"
 					to="/"
-					className="purchases white no-shadow btn no-radius small block"
+					className="option purchases white no-shadow btn no-radius small block"
 				>
 					<i className="fa fa-home" />
 				</Link>
@@ -60,7 +64,7 @@ export default class TopBar extends Component {
 				>
 					<button
 						onClick={this.toggleCartInfo}
-						className="btn white no-shadow small no-radius block"
+						className="btn toggle-cart white no-shadow small no-radius block"
 						style={{ width: "100px" }}
 					>
 						<div className="icon">
@@ -73,14 +77,14 @@ export default class TopBar extends Component {
 				<Link
 					active="active-link"
 					to="/purchases"
-					className="purchases white no-shadow btn no-radius small block"
+					className="option purchases white no-shadow btn no-radius small block"
 				>
 					<i className="fa fa-box-open" />
 				</Link>
 				<Link
 					active="active-link"
 					to="/sell"
-					className="purchases white no-shadow btn no-radius small block"
+					className="option purchases white no-shadow btn no-radius small block"
 				>
 					<i className="fa fa-plus" />
 				</Link>
