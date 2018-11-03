@@ -26,15 +26,24 @@ export default class Register extends Component {
 		});
 	};
 	validateemail = val => {
-		return true;
+		return !val.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/g);
 	};
 	validateSymbols = val => {
-		return true;
+		return false;
 	};
 	validate = () => {
 		let invalidusername = this.validateSymbols(this.state.username);
 		let invalidemail = this.validateemail(this.state.email);
-		return !this.state.invalid;
+		if (invalidusername)
+			this.setState({
+				invalidusername: true,
+				usernamemsg: "username invalid"
+			});
+		if (invalidemail)
+			this.setState({
+				invalidemail: true
+			});
+		return invalidusername || invalidemail;
 	};
 	componentDidMount() {
 		source = CancelToken.source();
@@ -43,26 +52,31 @@ export default class Register extends Component {
 		source.cancel("operation cancelled by user");
 	}
 	register = () => {
-		if (this.validate()) {
+		if (!this.validate()) {
 			this.setState({
 				loading: true
 			});
 			source = CancelToken.source();
+			console.log("happening");
 			axios
 				.post(
 					"/register",
 					{
 						username: this.state.username,
-						password: this.state.password
+						password: this.state.password,
+						email: this.state.email,
+						details: this.state.details
 					},
 					{
 						cancelToken: source.token
 					}
 				)
 				.then(data => {
+					console.log(data);
 					if (data.data.error != null)
 						this.setState({
-							invalid: true,
+							invalidusername: true,
+							usernamemsg: data.data.error,
 							loading: false
 						});
 					else {
@@ -91,8 +105,8 @@ export default class Register extends Component {
 								label="username"
 								value={this.state.username}
 								error={this.state.invalidusername}
-								message={"invalid username or password"}
-								displayMessage={this.state.invalid}
+								message={this.state.usernamemsg}
+								displayMessage={this.state.invalidusername}
 							/>
 							<InputField
 								onChange={this.changeData("email")}
@@ -100,7 +114,7 @@ export default class Register extends Component {
 								value={this.state.email}
 								error={this.state.invalidemail}
 								message={"invalid email format"}
-								displayMessage={this.state.invalid}
+								displayMessage={this.state.invalidemail}
 							/>
 							<InputField
 								onChange={this.changeData("password")}
@@ -120,7 +134,7 @@ export default class Register extends Component {
 							/>
 							<button
 								className="btn btn-submit right"
-								onClick={this.login}
+								onClick={this.register}
 							>
 								Submit
 							</button>
