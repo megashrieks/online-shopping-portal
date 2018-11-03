@@ -33,9 +33,7 @@ export default class AllProducts extends Component {
 							stock: element.remaining,
 							rating: 4,
 							pid: element.prod_id,
-							image:
-								"https://via.placeholder.com/200?text=image of " +
-								element.prod_name.toLowerCase()
+							image: element.image
 						};
 					})
 				});

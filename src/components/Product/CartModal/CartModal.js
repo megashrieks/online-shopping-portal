@@ -7,9 +7,14 @@ export default class CartModal extends Component {
 		count: 0
 	};
 	addCart = count => () => {
-		let { addToCart } = require("../../utils/cart");
-		addToCart(this.props.item.pid, count);
-		this.props.closeCart();
+		if (count > 0 && count <= this.props.item.stock) {
+			let { addToCart } = require("../../utils/cart");
+			addToCart(this.props.item.pid, count);
+			this.props.closeCart();
+		} else
+			this.setState({
+				invalidcount: true
+			});
 	};
 	changeCount = ({ target: { value } }) => {
 		this.setState({
@@ -32,7 +37,7 @@ export default class CartModal extends Component {
 								"value not between 1 and " +
 								this.props.item.stock
 							}
-							displayMessage={this.state.invalidqty}
+							displayMessage={this.state.invalidcount}
 							value={this.state.count}
 							onChange={this.changeCount}
 						/>

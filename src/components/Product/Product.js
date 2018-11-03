@@ -37,7 +37,8 @@ export default withRouter(
 							prod_details: details,
 							prod_name: title,
 							prod_price: price,
-							remaining: stock
+							remaining: stock,
+							image: image
 						}
 					} = response;
 					this.setState({
@@ -47,6 +48,7 @@ export default withRouter(
 						details,
 						title,
 						price,
+						image,
 						loading: false
 					});
 				})
@@ -89,13 +91,7 @@ export default withRouter(
 				<Loading conditional={true} loading={this.state.loading}>
 					<div className="product-details">
 						<div className="image">
-							<img
-								src={
-									"https://via.placeholder.com/200?text=image of " +
-									detail.title.toLowerCase()
-								}
-								alt={detail.title}
-							/>
+							<img src={detail.image} alt={detail.title} />
 						</div>
 						<div className="details">
 							<div className="title">{detail.title}</div>

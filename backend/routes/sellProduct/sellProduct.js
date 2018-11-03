@@ -3,7 +3,7 @@ let router = express.Router();
 router.post("/sell", (req, res) => {
 	let { sellProduct } = require("../../database");
 	let { verifyToken } = require("../../tokens");
-	let { name, count, price, details } = req.body;
+	let { name, count, price, details, image } = req.body;
 	verifyToken(req.headers.token)
 		.then(decoded => {
 			sellProduct(
@@ -12,7 +12,8 @@ router.post("/sell", (req, res) => {
 					name,
 					count,
 					price,
-					details
+					details,
+					image
 				},
 				(err, data) => {
 					if (err) throw err;

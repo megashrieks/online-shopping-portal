@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Loading from "../Loading/Loading";
 import { withRouter } from "react-router-dom";
 import "./Sell.css";
+import InputField from "../InputField/InputField";
 import axios from "axios";
 let CancelToken = axios.CancelToken;
 let source;
@@ -16,11 +17,12 @@ export default withRouter(
 			price: 0,
 			count: 0,
 			details: "",
+			image: "",
 			nameerror: false,
 			priceerror: false,
 			counterror: false,
 			detailserror: false,
-			image: ""
+			imageerror: false
 		};
 		change = field => ({ target: { value } }) => {
 			this.setState({
@@ -30,16 +32,29 @@ export default withRouter(
 		};
 		submit = () => {
 			let nameerror = this.state.name.replace(/\s/g, "") === "";
-			let priceerror = this.state.price === "";
-			let counterror = this.state.count === "";
+			let priceerror = this.state.price < 1;
+			let counterror = this.state.count < 1;
 			let detailserror = this.state.details.replace(/\s/g, "") === "";
+			let imageerror =
+				this.state.image.replace(/\s/g, "") === "" ||
+				!this.state.image.match(
+					/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/g
+				);
 			this.setState({
 				nameerror,
 				priceerror,
 				counterror,
-				detailserror
+				detailserror,
+				imageerror
 			});
-			if (nameerror || priceerror || counterror || detailserror) return;
+			if (
+				nameerror ||
+				priceerror ||
+				counterror ||
+				detailserror ||
+				imageerror
+			)
+				return;
 			else {
 				this.setState({
 					loading: true
@@ -60,11 +75,12 @@ export default withRouter(
 						}
 					)
 					.then(response => {
-						this.setState({
-							loading: false
-						});
+						console.log(response);
 						if (response.data.error) console.log(response.data.err);
 						else {
+							this.setState({
+								loading: false
+							});
 							this.props.history.push(
 								"/products/" + response.data.pid
 							);
@@ -89,11 +105,17 @@ export default withRouter(
 							className="container float image-upload"
 							style={{ width: "25%" }}
 						>
-							<input
-								type="text"
-								value={this.state.image}
-								onChange={this.change("image")}
-							/>
+							<div className="centered">
+								<InputField
+									type="text"
+									label="Image url"
+									error={this.state.imageerror}
+									message={"invalid url"}
+									displayMessage={this.state.imageerror}
+									value={this.state.image}
+									onChange={this.change("image")}
+								/>
+							</div>
 						</div>
 						<div
 							className="container float form-container"
@@ -102,79 +124,65 @@ export default withRouter(
 							<div className="header">
 								Enter your product information
 							</div>
-							<div
-								className={
-									"input-group" +
-									(this.state.nameerror ? " error" : "")
-								}
-							>
-								<div className="label inline">Name</div>
-								<div className="input inline">
-									<input
+							<div>
+								<div className="input-group half">
+									<InputField
 										type="text"
+										label="Name"
+										error={this.state.nameerror}
+										message={"invalid name"}
+										displayMessage={this.state.nameerror}
 										value={this.state.name}
 										onChange={this.change("name")}
 									/>
 								</div>
 							</div>
-							<div
-								className={
-									"input-group" +
-									(this.state.priceerror ? " error" : "")
-								}
-							>
-								<div className="label inline">Price</div>
-								<div className="input inline">
-									<input
-										type="number"
-										value={this.state.price}
-										onChange={this.change("price")}
-									/>
-								</div>
+							<div className="input-group half">
+								<InputField
+									type="number"
+									label="Price"
+									error={this.state.priceerror}
+									message={"invalid price"}
+									displayMessage={this.state.priceerror}
+									value={this.state.price}
+									onChange={this.change("price")}
+								/>
 							</div>
-							<div
-								className={
-									"input-group" +
-									(this.state.counterror ? " error" : "")
-								}
-							>
-								<div className="label inline">Quantity</div>
-								<div className="input inline">
-									<input
-										type="number"
-										value={this.state.count}
-										onChange={this.change("count")}
-									/>
-								</div>
+							<div className="input-group half">
+								<InputField
+									type="number"
+									label="quantity"
+									error={this.state.counterror}
+									message={"invalid quantity"}
+									displayMessage={this.state.counterror}
+									value={this.state.count}
+									onChange={this.change("count")}
+								/>
 							</div>
-							<div
-								className={
-									"input-group" +
-									(this.state.detailserror ? " error" : "")
-								}
-							>
-								<div className="label inline">Details</div>
-								<div className="input inline">
-									<textarea
-										rows={10}
-										cols={60}
-										value={this.state.details}
-										onChange={this.change("details")}
-									/>
-								</div>
+							<div className="input-group half">
+								<InputField
+									textarea={true}
+									label="details"
+									error={this.state.detailserror}
+									message={"invalid details"}
+									displayMessage={this.state.detailserror}
+									value={this.state.details}
+									onChange={this.change("details")}
+								/>
 							</div>
-							<button
-								className="btn btn-submit small no-radius"
-								style={{
-									float: "right",
-									width: "100px",
-									height: "40px",
-									lineHeight: "40px"
-								}}
-								onClick={this.submit}
-							>
-								Sell
-							</button>
+							<div className="half centered-container bbx">
+								<button
+									className="btn btn-submit small no-radius"
+									style={{
+										width: "100px",
+										height: "40px",
+										lineHeight: "40px"
+									}}
+									onClick={this.submit}
+								>
+									Sell
+								</button>
+							</div>
 						</div>
 					</div>
 				</Loading>

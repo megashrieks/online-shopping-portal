@@ -34,9 +34,7 @@ export default class CartItem extends Component {
 						title: response.data.prod_name,
 						detail: response.data.prod_details,
 						remaining: response.data.remaining,
-						image:
-							"https://via.placeholder.com/200?text=image of " +
-							response.data.prod_name.toLowerCase()
+						image: response.data.image
 					});
 			})
 			.catch(err => {
