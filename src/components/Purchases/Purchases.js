@@ -23,7 +23,7 @@ export default class Purchases extends Component {
 			)
 			.then(response => {
 				this.setState({
-					orders: response.data.data
+					orders: response.data.data || []
 				});
 			})
 			.catch(err => {

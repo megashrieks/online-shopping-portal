@@ -8,7 +8,7 @@ let CancelToken = axios.CancelToken;
 let source;
 export default class Register extends Component {
 	state = {
-		username: "shrikanth",
+		username: "",
 		password: "",
 		email: "",
 		detail: "",
@@ -32,18 +32,19 @@ export default class Register extends Component {
 		return false;
 	};
 	validate = () => {
-		let invalidusername = this.validateSymbols(this.state.username);
+		let invalidusername =
+			this.validateSymbols(this.state.username) ||
+			this.state.username.replace(/ /g, "").length === 0;
 		let invalidemail = this.validateemail(this.state.email);
+		let invalidpassword = this.state.password.length === 0;
 		if (invalidusername)
 			this.setState({
 				invalidusername: true,
 				usernamemsg: "username invalid"
 			});
-		if (invalidemail)
-			this.setState({
-				invalidemail: true
-			});
-		return invalidusername || invalidemail;
+		if (invalidemail) this.setState({ invalidemail: true });
+		if (invalidpassword) this.setState({ invalidpassword: true });
+		return invalidusername || invalidemail || invalidpassword;
 	};
 	componentDidMount() {
 		source = CancelToken.source();
@@ -122,11 +123,13 @@ export default class Register extends Component {
 								value={this.state.password}
 								type="password"
 								error={this.state.invalidpassword}
+								message={"invalid password"}
+								displayMessage={this.state.invalidpassword}
 							/>
 							<InputField
 								textarea={true}
 								onChange={this.changeData("detail")}
-								label="username"
+								label="About you"
 								value={this.state.detail}
 								error={this.state.invaliddetail}
 								message={"invalid detail"}

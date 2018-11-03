@@ -19,7 +19,8 @@ export default withRouter(
 			nameerror: false,
 			priceerror: false,
 			counterror: false,
-			detailserror: false
+			detailserror: false,
+			image: ""
 		};
 		change = field => ({ target: { value } }) => {
 			this.setState({
@@ -51,7 +52,8 @@ export default withRouter(
 							name: this.state.name,
 							price: this.state.price,
 							count: this.state.count,
-							details: this.state.details
+							details: this.state.details,
+							image: this.state.image
 						},
 						{
 							cancelToken: source.token
@@ -87,18 +89,11 @@ export default withRouter(
 							className="container float image-upload"
 							style={{ width: "25%" }}
 						>
-							<div className="file-centered">
-								<form>
-									<label className="custom-file" for="fileme">
-										<div className="styled-upload">
-											<span className="ocher">
-												<h4>Upload Image..</h4>
-											</span>
-										</div>
-										<input type="file" id="fileme" />
-									</label>
-								</form>
-							</div>
+							<input
+								type="text"
+								value={this.state.image}
+								onChange={this.change("image")}
+							/>
 						</div>
 						<div
 							className="container float form-container"

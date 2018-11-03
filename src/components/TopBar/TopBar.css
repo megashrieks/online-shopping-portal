@@ -12,7 +12,8 @@ body {
 	padding-top: 50px;
 }
 .badge {
-	background: #ccc;
+	background: rgb(86, 86, 250);
+	color: #fff;
 	border-radius: 50%;
 	float: right;
 	width: 20px;
@@ -56,4 +57,7 @@ body {
 .active-link,
 .cart-detail.active .toggle-cart {
 	background: #eee;
+}
+.right-float {
+	float: right;
 }

@@ -4,11 +4,12 @@ import InputField from "../InputField/InputField";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import setToken from "../utils/token/setToken";
+import queryString from "query-string";
 let CancelToken = axios.CancelToken;
 let source;
 export default class Login extends Component {
 	state = {
-		username: "shrikanth",
+		username: "",
 		password: "",
 		invalid: false,
 		loading: false
@@ -23,7 +24,13 @@ export default class Login extends Component {
 		return !this.state.invalid;
 	};
 	componentDidMount() {
+		let params = queryString.parse(this.props.location.search);
+		if (params.logout * 1 && params.rdr) {
+			localStorage.removeItem("auth");
+			this.props.history.push(params.rdr);
+		}
 		source = CancelToken.source();
+		localStorage.removeItem("auth");
 	}
 	componentWillUnmount() {
 		source.cancel("operation cancelled by user");
@@ -56,7 +63,11 @@ export default class Login extends Component {
 							loading: false
 						});
 						setToken(data.data.token);
-						this.props.history.push("/");
+						let params = queryString.parse(
+							this.props.location.search
+						);
+						if (params.rdr) this.props.history.push(params.rdr);
+						else this.props.history.push("/");
 					}
 				})
 				.catch(thrown => {

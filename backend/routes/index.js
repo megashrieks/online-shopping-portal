@@ -5,5 +5,6 @@ module.exports = [
 	require("./sellProduct/sellProduct"),
 	require("./getProduct/getProduct"),
 	require("./buyProduct/buyProduct"),
-	require("./getPurchases/getPurchases")
+	require("./getPurchases/getPurchases"),
+	require("./validateToken/validateToken")
 ];

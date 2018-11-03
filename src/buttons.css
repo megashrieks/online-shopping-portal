@@ -17,6 +17,9 @@
 	text-decoration: none;
 	color: inherit;
 }
+.small-radius {
+	border-radius: 5px;
+}
 .btn.block {
 	display: block;
 	float: left;
@@ -34,6 +37,12 @@
 .btn.auto-caps {
 	text-transform: initial;
 	font-size: 15px;
+}
+.btn.vsmall {
+	height: 42px;
+	line-height: 42px;
+	padding: 0 20px;
+	min-width: 0px;
 }
 .btn.small {
 	min-width: 0;
@@ -98,8 +107,21 @@
 	box-shadow: 0 5px 5px rgba(56, 56, 255, 0.4);
 	background: linear-gradient(45deg, rgb(50, 50, 220), rgb(120, 120, 255));
 }
+
+.btn-danger {
+	background: linear-gradient(45deg, #eb3349, #f45c43);
+	color: white;
+}
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus,
+.btn-danger.active {
+	box-shadow: 0 5px 5px rgba(236, 66, 14, 0.3);
+	background: linear-gradient(45deg, #eb3349, #f45c43);
+}
+
 .btn-warn {
-	background: linear-gradient(45deg, #fdc830, #f37335);
+	background: linear-gradient(45deg, #f7971e, #ffd200);
 	color: #000;
 }
 
@@ -108,7 +130,7 @@
 .btn-warn:focus,
 .btn-warn.active {
 	box-shadow: 0 5px 5px rgba(243, 115, 53, 0.4);
-	background: linear-gradient(55deg, #fdc830, #f37335);
+	background: linear-gradient(55deg, #f7971e, #ffd200);
 }
 .btn .icon {
 	width: 25%;

@@ -1,11 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { NavLink as Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
 import "./TopBar.css";
+import axios from "axios";
+let CancelToken = axios.CancelToken;
+let source;
 export default class TopBar extends Component {
 	state = {
 		items: [],
-		active: false
+		active: false,
+		loggedIn: false
 	};
 	constructor(props) {
 		super(props);
@@ -14,6 +18,7 @@ export default class TopBar extends Component {
 	}
 	unmounted = false;
 	componentWillUnmount() {
+		source.cancel("Operation cancelled by the user.");
 		this.unmounted = true;
 	}
 	changeCart = cart => {
@@ -27,6 +32,28 @@ export default class TopBar extends Component {
 		this.setState({
 			items: getCart().items
 		});
+		source = CancelToken.source();
+		axios
+			.post(
+				"/validate",
+				{},
+				{
+					cancelToken: source.token
+				}
+			)
+			.then(response => {
+				if (response.data.error)
+					this.setState({
+						loggedIn: false
+					});
+				else
+					this.setState({
+						loggedIn: true
+					});
+			})
+			.catch(err => {
+				if (axios.isCancel(err)) console.log(err.message);
+			});
 	}
 	toggleCartInfo = () => {
 		this.setState(prevState => ({
@@ -64,7 +91,7 @@ export default class TopBar extends Component {
 				>
 					<button
 						onClick={this.toggleCartInfo}
-						className="btn toggle-cart white no-shadow small no-radius block"
+						className="btn no-space toggle-cart white no-shadow small no-radius block"
 						style={{ width: "100px" }}
 					>
 						<div className="icon">
@@ -74,20 +101,52 @@ export default class TopBar extends Component {
 					</button>
 					<div className="cart-content">{cartList}</div>
 				</div>
-				<Link
-					active="active-link"
-					to="/purchases"
-					className="option purchases white no-shadow btn no-radius small block"
-				>
-					<i className="fa fa-box-open" />
-				</Link>
-				<Link
-					active="active-link"
-					to="/sell"
-					className="option purchases white no-shadow btn no-radius small block"
-				>
-					<i className="fa fa-plus" />
-				</Link>
+				<div className="right-float">
+					{this.state.loggedIn && (
+						<Fragment>
+							<Link
+								active="active-link"
+								to="/purchases"
+								className="option no-space purchases white no-shadow btn no-radius small block"
+							>
+								<i className="fa fa-box-open" />
+							</Link>
+							<Link
+								active="active-link"
+								to="/sell"
+								className="option no-space purchases white no-shadow btn no-radius small block"
+							>
+								<i className="fa fa-plus" />
+							</Link>
+							<Link
+								replace={true}
+								active="active-link"
+								to="/login?logout=1&rdr=/"
+								className="option no-space purchases white no-shadow btn no-radius small block"
+							>
+								<i className="fa fa-sign-out-alt" />
+							</Link>
+						</Fragment>
+					)}
+					{!this.state.loggedIn && (
+						<Fragment>
+							<Link
+								active="active-link"
+								to="/register"
+								className="option no-space purchases white no-shadow btn no-radius small block"
+							>
+								<i className="fa fa-user-plus" />
+							</Link>
+							<Link
+								active="active-link"
+								to="/login"
+								className="option no-space purchases white no-shadow btn no-radius small block"
+							>
+								<i className="fa fa-sign-in-alt" />
+							</Link>
+						</Fragment>
+					)}
+				</div>
 			</div>
 		);
 	}

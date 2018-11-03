@@ -114,7 +114,7 @@ export default withRouter(
 								{!this.state.found && (
 									<div
 										onClick={this.gotocart}
-										className="btn btn-warn margin no-radius no-space auto-caps no-padd"
+										className="btn margin no-radius no-space auto-caps no-padd"
 										style={{ width: "150px" }}
 									>
 										<div className="icon">
@@ -129,8 +129,8 @@ export default withRouter(
 								{this.state.found && (
 									<div
 										onClick={this.removeItemFromCart}
-										className="btn btn-warn margin no-radius no-space auto-caps"
-										style={{ width: "175px" }}
+										className="btn btn-danger margin no-radius no-space auto-caps"
+										style={{ width: "200px" }}
 									>
 										<div className="icon">
 											<i
@@ -138,7 +138,7 @@ export default withRouter(
 												style={{ fontSize: "18px" }}
 											/>{" "}
 										</div>
-										Remove to cart
+										Remove from cart
 									</div>
 								)}
 								<div
