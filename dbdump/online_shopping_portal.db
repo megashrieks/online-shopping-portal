@@ -1,0 +1,170 @@
+-- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
+--
+-- Host: localhost    Database: online_shopping_portal
+-- ------------------------------------------------------
+-- Server version	5.7.24-0ubuntu0.18.10.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Customer`
+--
+
+DROP TABLE IF EXISTS `Customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Customer` (
+  `username` varchar(20) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `details` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Customer`
+--
+
+LOCK TABLES `Customer` WRITE;
+/*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
+INSERT INTO `Customer` VALUES ('acnologia','abcdef','ac@ac.co',NULL),('acnologian','abcdef','shrikanthbudya@gmail.com','Shrikanth is awesome'),('acnologias','abcdef','sds','deetails'),('acnologiasd','abcdef','sds','deetails'),('bshrikanth','abcdef','shrikanthbudya@gmail.com',NULL),('megatroncoder','123456','megatroncoder@gmail.com','An alias for the Customer acnologia'),('shrikanth','sda','sad',NULL),('shrikantha','','ac@ac.com',NULL),('shrikanthaa','','asad@as.co',NULL);
+/*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Orders`
+--
+
+DROP TABLE IF EXISTS `Orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Orders` (
+  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cust_id` varchar(20) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  KEY `prod_id` (`prod_id`),
+  KEY `cust_id` (`cust_id`),
+  CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `Products` (`prod_id`),
+  CONSTRAINT `Orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `Customer` (`username`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Orders`
+--
+
+LOCK TABLES `Orders` WRITE;
+/*!40000 ALTER TABLE `Orders` DISABLE KEYS */;
+INSERT INTO `Orders` VALUES (34,'bshrikanth',1),(35,'bshrikanth',10);
+/*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Products`
+--
+
+DROP TABLE IF EXISTS `Products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Products` (
+  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prod_name` varchar(30) DEFAULT NULL,
+  `prod_price` int(11) DEFAULT NULL,
+  `prod_count` int(11) DEFAULT NULL,
+  `prod_details` varchar(200) DEFAULT NULL,
+  `image` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`prod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Products`
+--
+
+LOCK TABLES `Products` WRITE;
+/*!40000 ALTER TABLE `Products` DISABLE KEYS */;
+INSERT INTO `Products` VALUES (34,'Television',25000,10,'Classic HD television with HD audio quality.','http://gif.tv/tv.png'),(35,'Mixer',2000,20,'Excellent Mixer/Blender. Very Powerful!','https://www.cpsc.gov/s3fs-public/rp_LARGE_Blender%25201832449_Full%2520Product.jpg'),(36,'King size bed',30000,10,'This is a 10 x 8 bed. Very durable.','http://www.sleepdesign.co.uk/media/catalog/product/cache/1/thumbnail/1200x800/9df78eab33525d08d6e5fb8d27136e95/m/a/madrid_black_led_new_3-web.jpg');
+/*!40000 ALTER TABLE `Products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Sells`
+--
+
+DROP TABLE IF EXISTS `Sells`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Sells` (
+  `cust_id` varchar(20) DEFAULT NULL,
+  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
+  KEY `cust_id` (`cust_id`),
+  KEY `prod_id` (`prod_id`),
+  CONSTRAINT `Sells_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `Customer` (`username`) ON UPDATE CASCADE,
+  CONSTRAINT `Sells_ibfk_2` FOREIGN KEY (`prod_id`) REFERENCES `Products` (`prod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Sells`
+--
+
+LOCK TABLES `Sells` WRITE;
+/*!40000 ALTER TABLE `Sells` DISABLE KEYS */;
+INSERT INTO `Sells` VALUES ('acnologian',34),('acnologian',35),('bshrikanth',36);
+/*!40000 ALTER TABLE `Sells` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `available`
+--
+
+DROP TABLE IF EXISTS `available`;
+/*!50001 DROP VIEW IF EXISTS `available`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `available` AS SELECT 
+ 1 AS `prod_id`,
+ 1 AS `prod_name`,
+ 1 AS `prod_price`,
+ 1 AS `prod_count`,
+ 1 AS `prod_details`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `available`
+--
+
+/*!50001 DROP VIEW IF EXISTS `available`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `available` AS select `P`.`prod_id` AS `prod_id`,`P`.`prod_name` AS `prod_name`,`P`.`prod_price` AS `prod_price`,`P`.`prod_count` AS `prod_count`,`P`.`prod_details` AS `prod_details` from `Products` `P` where (((select (`P`.`prod_count` - sum(`O`.`count`)) from `Orders` `O` where (`O`.`prod_id` = `P`.`prod_id`)) >= 0) or ((select count(0) from `Orders` `O` where (`O`.`prod_id` = `P`.`prod_id`)) = 0)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-11-04 17:51:30
