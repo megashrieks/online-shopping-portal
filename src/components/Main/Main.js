@@ -6,6 +6,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Product from "../Product/Product";
 import TopBar from "../TopBar/TopBar";
 import Purchases from "../Purchases/Purchases";
+import Manage from "../Manage/Manage";
 import Sell from "../Sell/Sell";
 import axios from "axios";
 export default withRouter(
@@ -44,6 +45,15 @@ export default withRouter(
 								<Fragment>
 									<TopBar />
 									<Purchases />
+								</Fragment>
+							)}
+						/>
+						<Route
+							path="/manage"
+							component={() => (
+								<Fragment>
+									<TopBar />
+									<Manage />
 								</Fragment>
 							)}
 						/>

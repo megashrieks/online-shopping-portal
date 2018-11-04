@@ -9,12 +9,18 @@ export default class CartItem extends Component {
 	state = {
 		loading: true,
 		image: "",
-		title: "",
-		detail: "",
-		remaining: 0
+		title: "Item Not found",
+		detail: "Item doesn't exist",
+		remaining: 0,
+		error: false
 	};
+	unmounted = false;
 	componentWillUnmount() {
+		this.unmounted = true;
 		source.cancel("Operation cancelled by user");
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		return JSON.stringify(this.state) !== JSON.stringify(nextState);
 	}
 	componentDidMount() {
 		source = CancelToken.source();
@@ -28,7 +34,7 @@ export default class CartItem extends Component {
 						loading: false,
 						error: true
 					});
-				else
+				else {
 					this.setState({
 						loading: false,
 						title: response.data.prod_name,
@@ -36,9 +42,19 @@ export default class CartItem extends Component {
 						remaining: response.data.remaining,
 						image: response.data.image
 					});
+					if (!!this.props.sendInfo)
+						this.props.sendInfo(response.data);
+				}
 			})
 			.catch(err => {
 				if (axios.isCancel(err)) console.log(err.message);
+				else {
+					!this.unmounted &&
+						this.setState({
+							loading: false,
+							error: true
+						});
+				}
 			});
 	}
 	render() {
@@ -46,14 +62,20 @@ export default class CartItem extends Component {
 			<Link className="cart-item" to={"/products/" + this.props.pid}>
 				<Loading loading={this.state.loading} conditional={true}>
 					<div className="cart-image">
-						<img src={this.state.image} alt={this.state.title} />
+						{!this.state.error && (
+							<img
+								src={this.state.image}
+								alt={this.state.title}
+							/>
+						)}
 					</div>
 					<div className="cart-details">
 						<div className="cart-title">{this.state.title}</div>
 						<div className="cart-info">{this.state.detail}</div>
 					</div>
 					<div className="cart-count">
-						{this.props.count <= this.state.remaining ? (
+						{this.props.count <= this.state.remaining ||
+						!this.state.error ? (
 							this.props.count
 						) : (
 							<i className="fa fa-ban" />

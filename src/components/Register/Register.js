@@ -58,7 +58,6 @@ export default class Register extends Component {
 				loading: true
 			});
 			source = CancelToken.source();
-			console.log("happening");
 			axios
 				.post(
 					"/register",
@@ -73,7 +72,6 @@ export default class Register extends Component {
 					}
 				)
 				.then(data => {
-					console.log(data);
 					if (data.data.error != null)
 						this.setState({
 							invalidusername: true,
@@ -89,7 +87,7 @@ export default class Register extends Component {
 					}
 				})
 				.catch(thrown => {
-					console.log(thrown);
+					if (axios.isCancel(thrown)) console.log(thrown.message);
 				});
 		}
 	};

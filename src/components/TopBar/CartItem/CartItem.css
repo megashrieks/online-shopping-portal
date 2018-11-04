@@ -5,6 +5,7 @@
 	height: 80px;
 	cursor: pointer;
 	position: relative;
+	font-size: 0;
 	/* border-bottom: 1px solid #eee; */
 }
 .cart-item {
@@ -18,6 +19,7 @@
 	height: 50px;
 	line-height: 50px;
 	border-bottom: none;
+	font-size: 15px;
 }
 .cart-item:hover,
 .cart-item.active {
@@ -26,8 +28,8 @@
 }
 .cart-image {
 	width: 80px;
-	height: 100%;
-	float: left;
+	height: 80px;
+	display: inline-block;
 }
 .cart-image img {
 	width: 100%;
@@ -38,16 +40,18 @@
 
 .cart-details {
 	width: calc(85% - 80px);
-	float: left;
+	display: inline-block;
 	overflow: hidden;
 	padding: 10px;
+	height: 80px;
 	box-sizing: border-box;
 }
 .cart-count {
 	width: 15%;
 	height: 100%;
 	line-height: 80px;
-	float: left;
+	display: inline-block;
+	overflow: hidden;
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;

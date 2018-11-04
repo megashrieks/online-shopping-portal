@@ -67,12 +67,13 @@ export default class TopBar extends Component {
 			);
 		});
 		cartList.push(
-			<li
+			<Link
+				to="/manage"
 				key={"place"}
 				className="buy-prod block btn btn-submit no-radius no-space no-padd"
 			>
 				Manage Orders
-			</li>
+			</Link>
 		);
 		return (
 			<div className="top-bar">

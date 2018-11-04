@@ -75,8 +75,7 @@ export default withRouter(
 						}
 					)
 					.then(response => {
-						console.log(response);
-						if (response.data.error) console.log(response.data.err);
+						if (response.data.error) return;
 						else {
 							this.setState({
 								loading: false

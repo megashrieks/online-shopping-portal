@@ -71,7 +71,7 @@ export default class Login extends Component {
 					}
 				})
 				.catch(thrown => {
-					console.log(thrown);
+					if (axios.isCancel(thrown)) console.log(thrown.message);
 				});
 		}
 	};

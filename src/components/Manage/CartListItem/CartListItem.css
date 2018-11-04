@@ -1,0 +1,22 @@
+.delete-icon {
+	width: 10%;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	display: inline-block;
+	transition: 0.3s;
+	cursor: pointer;
+	overflow: hidden;
+}
+.cart-list-item:hover .delete-icon:not(:hover) {
+	background: rgb(50, 103, 218);
+	color: #fff;
+}
+.delete-icon:hover {
+	background: rgb(250, 56, 56);
+	color: white;
+}
+.wid-75 {
+	width: 90%;
+	display: inline-block;
+}
