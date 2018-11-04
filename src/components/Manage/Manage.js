@@ -13,6 +13,9 @@ export default withRouter(
 			items: [],
 			totalamount: 0
 		};
+		banned = {};
+		info = [];
+		initial = true;
 		componentWillUnmount() {
 			this.unmounted = true;
 			source.cancel("Operation cancelled by the user");
@@ -23,23 +26,52 @@ export default withRouter(
 				items: getCart().items
 			});
 			subscribeCartEvent(cart => {
+				this.initial = false;
+				let keys = Object.keys(this.banned);
+				let tempinfo = [];
+				let amt = 0;
+				for (var i = 0; i < keys.length; ++i) {
+					let found = false;
+					cart.items.forEach(element => {
+						if (element.pid === keys[i]) found = true;
+					});
+					if (!found) delete this.banned[keys[i]];
+				}
+				let t = this.count(cart.items);
+				amt = t[0];
+				this.info = t[1];
 				!this.unmounted &&
 					this.setState({
-						items: cart.items
+						items: cart.items,
+						totalamount: amt
 					});
 			});
 		}
+		count = items => {
+			let amt = 0;
+			let tempinfo = [];
+			items.forEach(element => {
+				this.info.forEach(inelement => {
+					if (inelement.prod_id == element.pid) {
+						tempinfo.push(inelement);
+						if (element.count <= inelement.remaining) {
+							amt += element.count * inelement.prod_price;
+						}
+					}
+				});
+			});
+			return [amt, tempinfo];
+		};
 		removeFromList = pid => () => {
 			removeFromCart(pid);
 		};
 		sendInfo = pid => info => {
 			let amt = 0;
-			this.state.items.forEach(element => {
-				if (element.pid === pid) amt += element.count * info.prod_price;
-			});
-			this.setState(prevState => ({
-				totalamount: prevState.totalamount + amt
-			}));
+			this.info.push(info);
+			this.initial &&
+				this.setState({
+					totalamount: this.count(this.state.items)[0]
+				});
 		};
 		gotobuy = () => {
 			this.props.history.push(this.props.match.url + "/buy");
@@ -58,6 +90,10 @@ export default withRouter(
 				})
 			});
 			this.state.items.forEach((element, index) => {
+				if (this.banned[element.pid]) {
+					this.itemcount -= 1;
+					return;
+				}
 				axios
 					.post(
 						"/buy/" + element.pid,
@@ -81,7 +117,6 @@ export default withRouter(
 			});
 		};
 		render() {
-			console.log(this.state.items);
 			let list = this.state.items.map((element, index) => {
 				return (
 					<CartListItem
@@ -103,23 +138,26 @@ export default withRouter(
 					>
 						{list}
 					</div>
-					<div className="total">
-						<div className="half">
-							<center>
-								Total Price : {this.state.totalamount}
-							</center>
+					{this.state.items.length - Object.keys(this.banned).length >
+						0 && (
+						<div className="total">
+							<div className="half">
+								<center>
+									Total Price : {this.state.totalamount}
+								</center>
+							</div>
+							<div className="half">
+								<center>
+									<div
+										onClick={this.gotobuy}
+										className="btn btn-submit margin vsmall"
+									>
+										Buy All
+									</div>
+								</center>
+							</div>
 						</div>
-						<div className="half">
-							<center>
-								<div
-									onClick={this.gotobuy}
-									className="btn btn-submit margin vsmall"
-								>
-									Buy All
-								</div>
-							</center>
-						</div>
-					</div>
+					)}
 					<Switch>
 						<Route
 							path={this.props.match.url + "/buy"}
@@ -128,7 +166,10 @@ export default withRouter(
 									<div className="centered-container">
 										<div className="centered-container">
 											Are you sure you want to buy these{" "}
-											{this.state.items.length} items ?
+											{this.state.items.length -
+												Object.keys(this.banned)
+													.length}{" "}
+											items ?
 										</div>
 									</div>
 									<center>

@@ -24,11 +24,11 @@ export default class SearchComponent extends Component {
 	search = () => {
 		let qerror = this.state.quantity < 0;
 		let perror = this.state.lprice > this.state.rprice;
+		this.setState({
+			quantityerror: qerror,
+			priceerror: perror
+		});
 		if (qerror || perror) {
-			this.setState({
-				quantityerror: qerror,
-				priceerror: perror
-			});
 			return;
 		}
 		this.props.onSearch({

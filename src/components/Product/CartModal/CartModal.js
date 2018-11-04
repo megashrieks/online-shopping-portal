@@ -4,7 +4,7 @@ import Modal from "../../UIUtils/Modal/Modal";
 import InputField from "../../InputField/InputField";
 export default class CartModal extends Component {
 	state = {
-		count: 0
+		count: 1
 	};
 	addCart = count => () => {
 		if (count > 0 && count <= this.props.item.stock) {
@@ -46,7 +46,7 @@ export default class CartModal extends Component {
 						className="btn btn-submit vsmall small-radius margin"
 						onClick={this.addCart(this.state.count)}
 					>
-						Buy
+						Add
 					</button>
 					<button
 						className="btn btn-danger vsmall small-radius margin"

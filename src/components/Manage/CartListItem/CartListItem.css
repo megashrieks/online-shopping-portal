@@ -8,6 +8,9 @@
 	cursor: pointer;
 	overflow: hidden;
 }
+.cart-list-item {
+	height: 80px;
+}
 .cart-list-item:hover .delete-icon:not(:hover) {
 	background: rgb(50, 103, 218);
 	color: #fff;
