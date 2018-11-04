@@ -9,8 +9,8 @@
     "jsonwebtoken": "^8.3.0",
     "mysql": "^2.16.0",
     "query-string": "^6.2.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
@@ -23,6 +23,6 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.5"
   }
 }
