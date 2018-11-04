@@ -30,3 +30,11 @@
 .login-inputs {
 	margin: 20px 0;
 }
+.reg-link {
+	color: rgb(52, 133, 255);
+	font-weight: bold;
+	text-decoration: none;
+}
+.reg-link:hover {
+	text-decoration: underline;
+}

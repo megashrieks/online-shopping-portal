@@ -4,6 +4,7 @@ import InputField from "../InputField/InputField";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import setToken from "../utils/token/setToken";
+import { Link } from "react-router-dom";
 let CancelToken = axios.CancelToken;
 let source;
 export default class Register extends Component {
@@ -133,12 +134,20 @@ export default class Register extends Component {
 								message={"invalid detail"}
 								displayMessage={this.state.invaliddetail}
 							/>
-							<button
-								className="btn btn-submit right"
-								onClick={this.register}
-							>
-								Submit
-							</button>
+							<div className="centered-container">
+								Already a member ?{" "}
+								<Link className="reg-link" to="/login">
+									Sign in
+								</Link>
+							</div>
+							<center>
+								<button
+									className="btn btn-submit"
+									onClick={this.register}
+								>
+									Submit
+								</button>
+							</center>
 						</div>
 					</Loading>
 				</div>

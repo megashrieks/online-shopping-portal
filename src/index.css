@@ -73,3 +73,6 @@ input[type="number"] {
 .bbx {
 	box-sizing: border-box;
 }
+.padded {
+	padding: 10px 30px;
+}

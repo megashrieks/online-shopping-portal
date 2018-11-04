@@ -17,17 +17,17 @@ export default class SearchResults extends Component {
 		source = CancelToken.source();
 		this.setState({ loading: true });
 		let pricerange = {};
-		if (this.props.options.lprice !== null)
+		if (this.props.controls.lprice !== null)
 			pricerange = {
-				lprice: this.props.options.lprice,
-				rprice: this.props.options.rprice
+				lprice: this.props.controls.lprice,
+				rprice: this.props.controls.rprice
 			};
 		axios
 			.get("/search", {
 				params: {
 					q: this.props.keyword,
 					...pricerange,
-					quantity: this.props.options.quantity || 0
+					quantity: this.props.controls.quantity || 0
 				},
 				cancelToken: source.token
 			})
@@ -61,13 +61,11 @@ export default class SearchResults extends Component {
 	};
 	render() {
 		let list = null;
-		if (this.state.result.length === 0)
-			if (this.props.keyword === "") list = "Enter a keyword to search";
-			else list = "No result was found";
-		else
+		if (this.state.result.length !== 0)
 			list = this.state.result.map((element, index) => {
 				return <SearchItem item={element} key={"item-" + index} />;
 			});
+		else list = "No result was found";
 		return (
 			<Loading loading={this.state.loading} conditional={true}>
 				<div className="search-results">

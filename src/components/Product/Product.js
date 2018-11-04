@@ -103,9 +103,6 @@ export default withRouter(
 							<div className="item-remaining">
 								Remaining {detail.stock} / {detail.total}
 							</div>
-							<div className="rating">
-								Ratings : {detail.rating} / 5.0
-							</div>
 							<div className="buttons">
 								{!this.state.found && (
 									<div
@@ -162,7 +159,8 @@ export default withRouter(
 									item={{
 										pid: this.state.pid,
 										stock: this.state.stock,
-										total: this.state.total
+										total: this.state.total,
+										price: this.state.price
 									}}
 								/>
 							)}
@@ -176,7 +174,8 @@ export default withRouter(
 										item={{
 											pid: this.state.pid,
 											stock: this.state.stock,
-											total: this.state.total
+											total: this.state.total,
+											price: this.state.price
 										}}
 									/>
 								)}

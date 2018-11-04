@@ -78,6 +78,11 @@ export default class BuyModal extends Component {
 									onChange={this.changeAmount}
 								/>
 							</div>
+							<div className="container total-amt">
+								Total Amount :{" "}
+								{this.state.amount * this.props.item.price}{" "}
+								<i className="fa fa-rupee-sign" />
+							</div>
 							<button
 								className="btn btn-submit vsmall small-radius margin"
 								onClick={this.buy(this.state.amount)}
@@ -101,7 +106,7 @@ export default class BuyModal extends Component {
 							</div>
 							<div>
 								<button
-									className="btn btn-danger vsmall no-radius margin"
+									className="btn btn-danger vsmall margin"
 									onClick={this.props.closeBuy}
 								>
 									Close

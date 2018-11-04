@@ -98,7 +98,11 @@ export default class TopBar extends Component {
 						<div className="icon">
 							<i className="fa fa-cart-plus" />
 						</div>
-						<div className="badge">{this.state.items.length}</div>
+						{this.state.items.length > 0 && (
+							<div className="badge">
+								{this.state.items.length}
+							</div>
+						)}
 					</button>
 					<div className="cart-content">{cartList}</div>
 				</div>

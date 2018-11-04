@@ -171,7 +171,7 @@ export default withRouter(
 							</div>
 							<div className="half centered-container bbx">
 								<button
-									className="btn btn-submit small no-radius"
+									className="btn btn-submit vsmall small-radius"
 									style={{
 										width: "100px",
 										height: "40px",

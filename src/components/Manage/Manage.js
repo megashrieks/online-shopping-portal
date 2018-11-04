@@ -79,7 +79,6 @@ export default withRouter(
 						if (this.itemcount === 0) this.closeModal();
 					});
 			});
-			// this.closeModal();
 		};
 		render() {
 			console.log(this.state.items);

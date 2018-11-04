@@ -5,6 +5,7 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import setToken from "../utils/token/setToken";
 import queryString from "query-string";
+import { Link } from "react-router-dom";
 let CancelToken = axios.CancelToken;
 let source;
 export default class Login extends Component {
@@ -98,12 +99,20 @@ export default class Login extends Component {
 								type="password"
 								error={this.state.invalid}
 							/>
-							<button
-								className="btn btn-submit right"
-								onClick={this.login}
-							>
-								Submit
-							</button>
+							<div className="centered-container">
+								Not a member ?{" "}
+								<Link className="reg-link" to="/register">
+									Sign up
+								</Link>
+							</div>
+							<center>
+								<button
+									className="btn btn-submit"
+									onClick={this.login}
+								>
+									Submit
+								</button>
+							</center>
 						</div>
 					</Loading>
 				</div>
