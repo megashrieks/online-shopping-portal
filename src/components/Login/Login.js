@@ -4,7 +4,7 @@ import InputField from "../InputField/InputField";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import setToken from "../utils/token/setToken";
-import queryString from "query-string";
+import qs from "qs";
 import { Link } from "react-router-dom";
 let CancelToken = axios.CancelToken;
 let source;
@@ -25,7 +25,7 @@ export default class Login extends Component {
 		return !this.state.invalid;
 	};
 	componentDidMount() {
-		let params = queryString.parse(this.props.location.search);
+		let params = qs.parse(this.props.location.search.substr(1));
 		if (params.logout * 1 && params.rdr) {
 			localStorage.removeItem("auth");
 			this.props.history.push(params.rdr);
@@ -64,8 +64,8 @@ export default class Login extends Component {
 							loading: false
 						});
 						setToken(data.data.token);
-						let params = queryString.parse(
-							this.props.location.search
+						let params = qs.parse(
+							this.props.location.search.substr(1)
 						);
 						if (params.rdr) this.props.history.push(params.rdr);
 						else this.props.history.push("/");

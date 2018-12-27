@@ -2,7 +2,6 @@ let express = require("express");
 let app = express();
 let bodyParser = require("body-parser");
 let cors = require("cors");
-
 const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,4 +11,5 @@ app.use(
 	})
 );
 app.use("", require("./backend/routes"));
+app.use(express.static(__dirname + "/build"));
 app.listen(PORT);
